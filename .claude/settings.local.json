@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --yes)",
+      "Bash(python3 -m venv venv)",
+      "Bash(source venv/bin/activate)",
+      "Bash(pip install -r requirements.txt)",
+      "Bash(npm install)",
+      "Bash(git add .gitignore README.md backend/ frontend/)",
+      "Bash(git commit:*)",
+      "Bash(uvicorn main:app --host 0.0.0.0 --port 8123 --reload)",
+      "Bash(curl -s http://localhost:8123/health)"
+    ]
+  }
+}
