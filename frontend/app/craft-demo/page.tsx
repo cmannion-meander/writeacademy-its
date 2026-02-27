@@ -31,7 +31,7 @@ export default function CraftDemoPage() {
         body: JSON.stringify({
           craft_technique: technique,
           context,
-          api_key: "devkey123",
+          api_key: "devkey123", // TODO: replace with session-based auth before production
         }),
       });
 
