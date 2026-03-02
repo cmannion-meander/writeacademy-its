@@ -10,13 +10,13 @@ python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env  # fill in your keys
-uvicorn main:app --reload
+uvicorn main:app --port 8123 --reload
 ```
 
-Server runs at http://localhost:8000
+Server runs at http://localhost:8123
 
-- **API docs:** http://localhost:8000/docs
-- **Health check:** http://localhost:8000/health
+- **API docs:** http://localhost:8123/docs
+- **Health check:** http://localhost:8123/health
 
 ## Cloud Run Deployment
 
@@ -33,12 +33,14 @@ Set secrets via Cloud Run environment variables or Secret Manager.
 
 | Variable | Description | Required |
 |---|---|---|
-| `GEMINI_API_KEY` | Google Gemini API key | Yes (for live Gemini calls) |
+| `GOOGLE_CLOUD_PROJECT` | Your Google Cloud Project ID. | Yes |
 | `WRITEACADEMY_API_KEY` | Shared secret for frontend→backend auth | Yes |
 
 ## API Endpoints
 
-### POST /craft-demo
+All endpoints require an `X-API-Key` header for authentication.
+
+### POST /craft-demo (Mock)
 
 Streams interleaved teaching blocks for a given craft technique.
 
@@ -47,7 +49,6 @@ Streams interleaved teaching blocks for a given craft technique.
 {
   "craft_technique": "suspense",
   "context": "optional extra context for Gemini",
-  "api_key": "your-writeacademy-api-key"
 }
 ```
 

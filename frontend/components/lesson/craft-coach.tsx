@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sparkles, ChevronDown, Loader2 } from "lucide-react";
+import { Sparkles, ChevronDown, Loader2, ImageIcon } from "lucide-react";
 import type { CraftBlock } from "@/lib/types";
 
 interface CraftCoachProps {
@@ -20,24 +20,32 @@ export function CraftCoach({
   const [error, setError] = useState<string | null>(null);
   const [collapsed, setCollapsed] = useState(false);
 
+  const [visualizePrompt, setVisualizePrompt] = useState("");
+  const [visualizeImageUrl, setVisualizeImageUrl] = useState<string | null>(null);
+  const [visualizeLoading, setVisualizeLoading] = useState(false);
+  const [visualizeError, setVisualizeError] = useState<string | null>(null);
+
   const backendUrl =
     process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8123";
+
+  const apiHeaders = {
+    "Content-Type": "application/json",
+    "X-API-Key": "devkey123",
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBlocks([]);
     setError(null);
+    setVisualizeImageUrl(null);
+    setVisualizePrompt("");
     setLoading(true);
 
     try {
       const res = await fetch(`${backendUrl}/craft-demo`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          craft_technique: technique,
-          context,
-          api_key: "devkey123", // TODO: replace with session-based auth before production
-        }),
+        headers: apiHeaders,
+        body: JSON.stringify({ craft_technique: technique, context }),
       });
 
       if (!res.ok) {
@@ -77,12 +85,46 @@ export function CraftCoach({
     }
   }
 
+  async function handleVisualize(e: React.FormEvent) {
+    e.preventDefault();
+    setVisualizeImageUrl(null);
+    setVisualizeError(null);
+    setVisualizeLoading(true);
+
+    try {
+      const res = await fetch(`${backendUrl}/visualize`, {
+        method: "POST",
+        headers: apiHeaders,
+        body: JSON.stringify({ prompt: visualizePrompt }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail ?? `${res.status}`);
+      }
+
+      const blob = await res.blob();
+      setVisualizeImageUrl(URL.createObjectURL(blob));
+    } catch (err) {
+      setVisualizeError(
+        err instanceof Error ? err.message : "Visualization failed"
+      );
+    } finally {
+      setVisualizeLoading(false);
+    }
+  }
+
   function handleReset() {
     setBlocks([]);
     setError(null);
     setTechnique(defaultTechnique);
     setContext(defaultContext);
+    setVisualizePrompt("");
+    setVisualizeImageUrl(null);
+    setVisualizeError(null);
   }
+
+  const isDone = blocks.length > 0 && !loading;
 
   return (
     <section className="border border-gray-200 rounded-xl overflow-hidden mt-12">
@@ -114,12 +156,12 @@ export function CraftCoach({
         <div className="p-5 bg-white">
           {/* Intro text */}
           <p className="text-sm text-gray-600 mb-5">
-            See this lesson's craft technique in action. Gemini will generate
-            an annotated example passage and a personalised writing prompt — just
-            for you.
+            See this lesson&apos;s craft technique in action. Gemini will
+            generate an annotated example passage and a personalised writing
+            prompt — just for you.
           </p>
 
-          {/* Form */}
+          {/* Craft demo form */}
           <form onSubmit={handleSubmit} className="space-y-3 mb-6">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1 uppercase tracking-wide">
@@ -160,7 +202,7 @@ export function CraftCoach({
                 {loading && <Loader2 className="h-4 w-4 animate-spin" />}
                 {loading ? "Generating…" : "Show me this in action"}
               </button>
-              {blocks.length > 0 && !loading && (
+              {isDone && (
                 <button
                   type="button"
                   onClick={handleReset}
@@ -188,7 +230,7 @@ export function CraftCoach({
             </div>
           )}
 
-          {/* Streamed blocks */}
+          {/* Streamed craft blocks */}
           {blocks.length > 0 && (
             <div className="space-y-4 border-t border-gray-100 pt-5">
               {blocks.map((block, i) => (
@@ -198,6 +240,64 @@ export function CraftCoach({
                 <div className="flex items-center gap-2 text-gray-400 text-sm">
                   <span className="w-2 h-2 rounded-full bg-[#F59E42] animate-pulse inline-block" />
                   More coming…
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Visualize panel — appears after craft demo completes */}
+          {isDone && (
+            <div className="mt-8 border-t border-gray-100 pt-6">
+              <div className="flex items-center gap-2 mb-1">
+                <ImageIcon className="h-4 w-4 text-[#5dade2]" />
+                <h3 className="text-sm font-bold text-gray-800">
+                  Visualize your scene
+                </h3>
+              </div>
+              <p className="text-xs text-gray-500 mb-4">
+                Describe a scene from the story you have in mind and Gemini
+                will illustrate it — helping you picture what you&apos;re
+                working towards.
+              </p>
+
+              <form onSubmit={handleVisualize} className="space-y-3">
+                <textarea
+                  value={visualizePrompt}
+                  onChange={(e) => setVisualizePrompt(e.target.value)}
+                  placeholder="e.g. A child stepping into a magical library hidden behind a waterfall, warm golden light, illustrated storybook style"
+                  rows={3}
+                  required
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#5dade2] focus:border-transparent resize-none"
+                />
+                <button
+                  type="submit"
+                  disabled={visualizeLoading}
+                  className="flex items-center gap-2 rounded-lg bg-[#5dade2] px-5 py-2 text-sm font-semibold text-white hover:bg-sky-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  {visualizeLoading && (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  )}
+                  {visualizeLoading ? "Illustrating…" : "Illustrate this scene"}
+                </button>
+              </form>
+
+              {visualizeError && (
+                <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 mt-4">
+                  {visualizeError}
+                </div>
+              )}
+
+              {visualizeImageUrl && (
+                <div className="mt-5">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={visualizeImageUrl}
+                    alt="Gemini-generated scene illustration"
+                    className="rounded-xl w-full max-w-lg border border-gray-200 shadow-sm"
+                  />
+                  <p className="text-xs text-gray-400 mt-2">
+                    AI-generated illustration · Powered by Google Gemini
+                  </p>
                 </div>
               )}
             </div>

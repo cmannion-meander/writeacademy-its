@@ -1,5 +1,6 @@
 fastapi
-uvicorn
-google-generativeai
+uvicorn[standard]
 python-dotenv
-httpx
+google-genai[vertexai]
+Pillow
+requests

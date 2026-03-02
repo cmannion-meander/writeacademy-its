@@ -3,17 +3,72 @@ import { TopNav } from "@/components/layout/top-nav";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
 import { Footer } from "@/components/layout/footer";
 import { ModuleSidebar } from "@/components/lesson/module-sidebar";
-import { CraftCoach } from "@/components/lesson/craft-coach";
+import { StructuredLesson } from "@/components/lesson/structured-lesson";
 import { mockCourses } from "@/lib/mock-data";
+import { fetchLiveCourse } from "@/lib/lms-api";
+import type { Course, StudentProfile } from "@/lib/types";
 import { ClipboardList } from "lucide-react";
+
+// ITS Student Model — default profile for the demo
+const DEFAULT_STUDENT: StudentProfile = {
+  name: "Student",
+  level: "beginner",
+  genre_preference: "children's picture books",
+  learning_style: "visual",
+  tone_preference: "warm and encouraging",
+};
 
 interface PageProps {
   params: Promise<{ courseSlug: string; lessonId: string }>;
 }
 
+async function getCourse(courseSlug: string): Promise<Course | undefined> {
+  if (courseSlug === "write-storybooks-for-children") {
+    try {
+      return await fetchLiveCourse();
+    } catch (err) {
+      console.warn("LMS API unavailable, falling back to mock data:", err);
+    }
+  }
+  return mockCourses.find((c) => c.slug === courseSlug);
+}
+
+// Minimal markdown renderer — used only for article lessons without a craft technique
+function renderContentFallback(content: string) {
+  return content
+    .split("\n\n")
+    .filter((p) => p.trim())
+    .map((para, i) => {
+      const t = para.trim();
+      const h1 = t.match(/^#\s+(.+)$/m);
+      if (h1)
+        return (
+          <h2 key={i} className="text-xl font-bold text-gray-900 mt-6 mb-2">
+            {h1[1]}
+          </h2>
+        );
+      const h2 = t.match(/^##\s+(.+)$/m);
+      if (h2)
+        return (
+          <h3 key={i} className="text-lg font-semibold text-gray-800 mt-4 mb-2">
+            {h2[1]}
+          </h3>
+        );
+      const text = t
+        .replace(/\*\*(.*?)\*\*/g, "$1")
+        .replace(/\*(.*?)\*/g, "$1")
+        .replace(/`(.*?)`/g, "$1");
+      return (
+        <p key={i} className="mb-4 text-gray-800 leading-relaxed text-[15px]">
+          {text}
+        </p>
+      );
+    });
+}
+
 export default async function LessonPage({ params }: PageProps) {
   const { courseSlug, lessonId } = await params;
-  const course = mockCourses.find((c) => c.slug === courseSlug);
+  const course = await getCourse(courseSlug);
 
   if (!course) notFound();
 
@@ -45,27 +100,35 @@ export default async function LessonPage({ params }: PageProps) {
 
         {/* Main content */}
         <main className="flex-1 flex flex-col min-w-0">
-          <div className="flex-1 px-8 py-10 max-w-4xl">
+          <div className="flex-1 px-8 py-10 max-w-3xl w-full mx-auto lg:mx-0">
             {/* Breadcrumb */}
-            <p className="text-xs text-gray-400 mb-1 uppercase tracking-wide">
+            <p className="text-[11px] font-semibold text-gray-400 mb-2 uppercase tracking-widest">
               {course.sections.find((s) =>
                 s.lessons.some((l) => l.id === lessonId)
               )?.title}
             </p>
 
             {/* Lesson title */}
-            <h1 className="text-2xl font-bold text-gray-900 mb-6 leading-snug">
+            <h1 className="text-2xl font-bold text-gray-900 mb-1 leading-snug">
               {lesson.title}
             </h1>
+            <div className="h-0.5 w-12 bg-[#F59E42] rounded-full mt-4 mb-6" />
 
-            {/* Lesson content */}
-            {lesson.type === "article" && lesson.content && (
+            {/* Lesson content — ITS Structured Lesson or fallback renderer */}
+            {lesson.type === "article" && lesson.craftTechnique && lesson.content && (
+              <StructuredLesson
+                lessonId={lesson.id}
+                lessonTitle={lesson.title}
+                lessonContent={lesson.content}
+                craftTechnique={lesson.craftTechnique}
+                craftContext={lesson.craftContext ?? ""}
+                student={DEFAULT_STUDENT}
+              />
+            )}
+
+            {lesson.type === "article" && !lesson.craftTechnique && lesson.content && (
               <div className="prose prose-gray max-w-none">
-                {lesson.content.split("\n\n").map((para, i) => (
-                  <p key={i} className="mb-4 text-gray-800 leading-relaxed text-[15px]">
-                    {para}
-                  </p>
-                ))}
+                {renderContentFallback(lesson.content)}
               </div>
             )}
 
@@ -73,24 +136,18 @@ export default async function LessonPage({ params }: PageProps) {
               <div className="rounded-xl border border-blue-200 bg-blue-50 p-6 flex items-start gap-4">
                 <ClipboardList className="h-6 w-6 text-blue-400 shrink-0 mt-0.5" />
                 <div>
-                  <h2 className="font-semibold text-blue-900 mb-1">Module Test</h2>
+                  <h2 className="font-semibold text-blue-900 mb-1">
+                    Module Test
+                  </h2>
                   <p className="text-sm text-blue-700 mb-4">
-                    Complete all questions to test your knowledge of this module.
-                    You must complete the test in one sitting.
+                    Complete all questions to test your knowledge of this
+                    module. You must complete the test in one sitting.
                   </p>
                   <button className="rounded-lg bg-black text-white px-6 py-2 text-sm font-semibold hover:bg-gray-800 transition-colors">
                     Start Test
                   </button>
                 </div>
               </div>
-            )}
-
-            {/* ITS Craft Coach — only for article lessons with a technique */}
-            {lesson.type === "article" && lesson.craftTechnique && (
-              <CraftCoach
-                defaultTechnique={lesson.craftTechnique}
-                defaultContext={lesson.craftContext}
-              />
             )}
 
             {/* Bottom lesson nav */}
@@ -108,7 +165,7 @@ function LessonNav({
   course,
   currentLessonId,
 }: {
-  course: (typeof mockCourses)[0];
+  course: Course;
   currentLessonId: string;
 }) {
   const allLessons = course.sections.flatMap((s) => s.lessons);
