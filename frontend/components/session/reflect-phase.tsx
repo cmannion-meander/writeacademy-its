@@ -20,6 +20,7 @@ interface ReflectPhaseProps {
   plan: SessionPlan;
   story: StoryProject;
   uid: string;
+  authorName: string;
   completedPages: (StoryPage & { illustration_b64?: string })[];
   onNextSession: () => void;
   onExport: () => void;
@@ -37,6 +38,7 @@ export function ReflectPhase({
   plan,
   story,
   uid,
+  authorName,
   completedPages,
   onNextSession,
   onExport,
@@ -86,7 +88,7 @@ export function ReflectPhase({
       <div className="max-w-3xl mx-auto wa-animate-fade-up">
         <StorybookViewer
           title={story.title}
-          authorName={story.character_name}
+          authorName={authorName}
           pages={completedPages}
           onClose={() => setShowViewer(false)}
         />

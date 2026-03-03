@@ -13,16 +13,17 @@ import {
   getUid,
   getCurrentStoryId,
   loadStory,
+  loadProfile,
   loadSessionPlan,
   saveSessionPlan,
   saveCurrentSession,
   loadCurrentSession,
   loadPageIllustration,
+  savePageIllustration,
   loadDraft,
+  saveDraft,
 } from "@/lib/storage";
 import type { SessionPlan, StoryProject, StoryPage } from "@/lib/types";
-
-import { saveDraft } from "@/lib/storage";
 
 type Phase = "loading" | "wonder" | "build" | "reflect" | "editing" | "next-loading" | "error";
 
@@ -45,6 +46,7 @@ export default function SessionPage() {
   const [exporting, setExporting] = useState(false);
   const [exportError, setExportError] = useState<string | null>(null);
   const [editingPageNumber, setEditingPageNumber] = useState<number | null>(null);
+  const [displayName, setDisplayName] = useState<string>("");
   const [editDraft, setEditDraft] = useState("");
   const [editSaving, setEditSaving] = useState(false);
   const [editIllustrating, setEditIllustrating] = useState(false);
@@ -62,6 +64,9 @@ export default function SessionPage() {
       }
 
       setUid(storedUid);
+
+      const profile = loadProfile(storedUid);
+      if (profile?.display_name) setDisplayName(profile.display_name);
 
       const storedStory = loadStory(storyId);
       if (!storedStory) {
@@ -160,6 +165,10 @@ export default function SessionPage() {
   }
 
   function handlePageComplete(page: StoryPage & { illustration_b64?: string }) {
+    // Persist illustration to localStorage so hydration stays current
+    if (story && page.illustration_b64) {
+      savePageIllustration(story.story_id, page.page_number, page.illustration_b64);
+    }
     setCompletedPages(prev => {
       const existing = prev.findIndex(p => p.page_number === page.page_number);
       if (existing >= 0) {
@@ -338,7 +347,7 @@ export default function SessionPage() {
         headers: API_HEADERS,
         body: JSON.stringify({
           title: story.title,
-          author_name: story.character_name,
+          author_name: displayName || story.character_name,
           pages: completedPages.map(p => ({
             page_number: p.page_number,
             text_draft: p.text_draft,
@@ -488,6 +497,7 @@ export default function SessionPage() {
             plan={plan}
             story={story}
             uid={uid}
+            authorName={displayName || story.character_name}
             completedPages={completedPages}
             onNextSession={handleNextSession}
             onExport={handleExport}

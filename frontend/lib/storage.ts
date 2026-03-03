@@ -12,6 +12,7 @@ import {
   type StoryPage,
   type SessionPlan,
   type OnboardingResult,
+  type LearnerProfile,
 } from "./types";
 
 // ─── UID (persists across sessions) ──────────────────────────────────────────
@@ -106,6 +107,11 @@ export function saveOnboardingResult(result: OnboardingResult): void {
   if (result.session_plan) {
     saveSessionPlan(result.story.story_id, 1, result.session_plan);
   }
+}
+
+export function loadProfile(uid: string): LearnerProfile | null {
+  const raw = localStorage.getItem(`wa_profile_${uid}`);
+  return raw ? (JSON.parse(raw) as LearnerProfile) : null;
 }
 
 // ─── Session resume check ─────────────────────────────────────────────────────

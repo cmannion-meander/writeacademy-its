@@ -1,0 +1,36 @@
+{
+  "session_number": 2,
+  "title": "The Problem",
+  "story_beat": "Pink Bear wakes up to a snowy Easter morning, realizing her carefully planned egg hunt is now impossible, sparking a need for a new solution.",
+  "target_pages": [
+    4,
+    5,
+    6
+  ],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "full",
+      "reason": "Chris needs to fully grasp how to use senses to make the problem vivid and real for young readers."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "As Pink Bear encounters the problem, her unique optimistic voice should emerge through her reactions and thoughts, making her feelings clear."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "Chris is competent in 'show, don't tell,' so a brief reminder on showing Pink Bear's disappointment and determination rather than stating it will reinforce the skill."
+    }
+  ],
+  "wonder_prompt": "Imagine your favorite quiet spot suddenly becoming loud and crowded. How would the sounds, smells, and sights change, and how would those changes make you feel? Read this passage and notice how the author makes you *feel* the world transforming around the Little House.",
+  "wonder_example": "The air was no longer fresh and clean. The stars were hidden by the city lights, and there were no fireflies at all. Now the Little House watched the trucks and automobiles going by at all hours of the day and night. They were noisy and they smelled bad. (Virginia Lee Burton, The Little House)",
+  "build_instructions": "This session, help Pink Bear discover the big problem of the snowy Easter morning and show her initial reaction, using vivid details to make the challenge real for young readers.",
+  "page_prompts": [
+    "Write the moment Pink Bear first opens her button eyes on Easter morning. What does she see outside Susie's window, and how does the unexpected snow immediately tell her something is wrong with her plans?",
+    "Now, show Pink Bear's immediate reaction to the snowy garden. Does her soft pink fur fluff up in surprise, or does she sigh? Use her unique optimistic voice to show her initial disappointment and then her first spark of an idea, even if it's a small one.",
+    "Everything changes when Pink Bear realizes the full scope of the problem: not just the outdoor egg hunt, but perhaps other Easter traditions are now impossible. Write the moment she understands the true challenge, making it clear this isn't just a small hiccup, but a big adventure waiting to happen."
+  ],
+  "reflect_preview": "Pink Bear now faces a snowy Easter morning with her plans buried. What will her optimistic spirit come up with next to save the day, and who will help her rebuild?"
+}

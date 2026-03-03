@@ -1,0 +1,36 @@
+{
+  "session_number": 3,
+  "title": "The Journey",
+  "story_beat": "Pink Bear bravely attempts to bring the spirit of Easter indoors, facing unexpected challenges that test her cheerful resolve and begin to shift her perspective on what a perfect Easter truly means.",
+  "target_pages": [
+    7,
+    8,
+    9
+  ],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "full",
+      "reason": "To immerse the reader fully in Pink Bear's attempts, making the indoor Easter setting and the snowy outdoor world vivid and real through sights, sounds, and textures."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "To deeply explore Pink Bear's unique optimistic personality as she encounters setbacks, showing her thoughts and feelings through her actions and words."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "To briefly remind Chris to demonstrate Pink Bear's efforts, frustrations, and dawning realizations through her actions and expressions, rather than simply stating them."
+    }
+  ],
+  "wonder_prompt": "Imagine you're Pink Bear, waking up to a snowy Easter. How would the cold air feel on your fur, what sounds would the quiet snow make, and what would your button eyes focus on first? What makes you *feel* like you're right there with her, experiencing everything?",
+  "wonder_example": "The wind howled like a hungry wolf, rattling the windowpanes. Lily pulled her blanket tighter, but still, a shiver snaked up her spine. Outside, the world was a blur of white, and the old oak tree looked like a giant, frosted cake. (Anna Dewdney, Llama Llama Misses Mama)",
+  "build_instructions": "This session, focus on showing Pink Bear's determined attempts to create an indoor Easter, highlighting her optimistic spirit as she navigates the unexpected challenges brought by the snowy morning.",
+  "page_prompts": [
+    "Write the moment Pink Bear first decides to bring Easter inside. What small, hopeful action does she take, and what sensory details does she notice about the objects she gathers?",
+    "Now, Pink Bear tries to arrange her indoor Easter, but something goes wrong – perhaps a decoration tumbles, or a plan doesn't quite work. Show her initial reaction to this stumble, using her unique character voice.",
+    "Everything changes when Pink Bear pauses, takes a deep breath, and has a new idea or a small realization about what Easter truly means. Write this turning point, showing her shift in perspective."
+  ],
+  "reflect_preview": "Pink Bear has a new plan, but will it be enough to make Easter truly special? What new adventures await as she rebuilds her day, and who might help her make it happen?"
+}

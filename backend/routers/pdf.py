@@ -46,6 +46,28 @@ class ExportRequest(BaseModel):
     pages: list[ExportPageData] = Field(min_length=1)
 
 
+# ─── Text sanitiser (Helvetica is latin-1 only) ─────────────────────────────
+
+_UNICODE_MAP = str.maketrans({
+    "\u2014": "--",   # em dash
+    "\u2013": "-",    # en dash
+    "\u2018": "'",    # left single quote
+    "\u2019": "'",    # right single quote / apostrophe
+    "\u201C": '"',    # left double quote
+    "\u201D": '"',    # right double quote
+    "\u2026": "...",  # ellipsis
+    "\u00A0": " ",    # non-breaking space
+    "\u2022": "-",    # bullet
+    "\u00B7": "-",    # middle dot
+})
+
+
+def _sanitize(text: str) -> str:
+    """Replace common Unicode chars with latin-1 safe equivalents."""
+    text = text.translate(_UNICODE_MAP)
+    return text.encode("latin-1", errors="replace").decode("latin-1")
+
+
 # ─── PDF builder ──────────────────────────────────────────────────────────────
 
 class StorybookPDF(FPDF):
@@ -53,8 +75,8 @@ class StorybookPDF(FPDF):
 
     def __init__(self, title: str, author: str):
         super().__init__(orientation="P", unit="mm", format="A4")
-        self.title = title
-        self.author = author
+        self.title = _sanitize(title)
+        self.author = _sanitize(author)
         self.set_auto_page_break(auto=False)
         self.add_page()
         self._draw_cover()
@@ -134,7 +156,7 @@ class StorybookPDF(FPDF):
         self.set_xy(margin, text_y)
         self.set_font("Helvetica", "", 11)
         self.set_text_color(31, 41, 55)
-        self.multi_cell(w - margin * 2, 6, text, align="L")
+        self.multi_cell(w - margin * 2, 6, _sanitize(text), align="L")
 
     def add_back_cover(self) -> None:
         self.add_page()
@@ -172,18 +194,21 @@ async def export_story(
             detail="fpdf2 is not installed. Run: pip install fpdf2",
         )
 
-    pdf = StorybookPDF(title=request.title, author=request.author_name)
+    try:
+        pdf = StorybookPDF(title=request.title, author=request.author_name)
 
-    for page in sorted(request.pages, key=lambda p: p.page_number):
-        pdf.add_story_page(
-            page_number=page.page_number,
-            text=page.text_draft,
-            illustration_b64=page.illustration_b64,
-        )
+        for page in sorted(request.pages, key=lambda p: p.page_number):
+            pdf.add_story_page(
+                page_number=page.page_number,
+                text=page.text_draft,
+                illustration_b64=page.illustration_b64,
+            )
 
-    pdf.add_back_cover()
+        pdf.add_back_cover()
+        pdf_bytes = pdf.output()
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF generation failed: {e}")
 
-    pdf_bytes = pdf.output()
     filename = request.title.replace(" ", "-").lower()[:50] + ".pdf"
 
     return StreamingResponse(

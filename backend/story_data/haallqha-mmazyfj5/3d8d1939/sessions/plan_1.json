@@ -1,0 +1,36 @@
+{
+  "session_number": 1,
+  "title": "The Opening",
+  "story_beat": "Pink Bear awakens on Easter morning, ready for her perfect day, only to glimpse the first unexpected sign that her plans might be changing.",
+  "target_pages": [
+    1,
+    2,
+    3
+  ],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "full",
+      "reason": "Chris is developing in sensory detail, so a full lesson will help build this foundational skill for vivid world-building."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "Chris has not been assessed in character voice, and establishing Pink Bear's unique personality and perspective is crucial for the story's opening."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "Chris is competent in show don't tell, so a brief reminder will reinforce this skill while focusing on other areas."
+    }
+  ],
+  "wonder_prompt": "Imagine you're standing in Susie's room. What do you see, hear, smell, and feel? What makes that specific place feel real and alive to you?",
+  "wonder_example": "The wind was a wolf, howling at the door, and the snow was a white blanket, tucking the world in tight. Inside, the fire crackled, warm and bright, and the smell of cinnamon filled the air. (Chris Van Allsburg, The Polar Express)",
+  "build_instructions": "This session, focus on bringing Pink Bear and her New England spring world to life, showing us her vibrant personality and the setting where her Easter morning plans are about to shift.",
+  "page_prompts": [
+    "Write the moment Pink Bear wakes up on Easter morning. What does she see, hear, and feel around her in Susie's cozy room, full of anticipation for the day?",
+    "Pink Bear, with her optimistic spirit, is ready for her perfect Easter. Show her preparing or looking forward to a specific detail of her plans, like finding eggs in the garden, using sensory details to make it vivid.",
+    "Just as Pink Bear is brimming with excitement, she notices the first hint that something is amiss outside. Write the exact moment she sees or hears something unexpected that challenges her perfect plan."
+  ],
+  "reflect_preview": "Pink Bear's perfect Easter morning is now on a collision course with an unexpected surprise. What could possibly change her carefully laid plans, and how will her optimistic spirit face this new challenge?"
+}
