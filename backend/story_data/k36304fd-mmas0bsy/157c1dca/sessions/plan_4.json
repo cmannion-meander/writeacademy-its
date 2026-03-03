@@ -1,0 +1,26 @@
+{
+  "session_number": 4,
+  "title": "The Resolution",
+  "story_beat": "Pink Bear finds an ingenious solution to the snowy garden, successfully hosts the Easter Egg Hunt, and the story concludes with a heartwarming, lingering image of joy and friendship.",
+  "target_pages": [
+    10,
+    11,
+    12
+  ],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "To ensure the final celebratory scene and the lingering image are vivid and engaging for young readers."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "Essential for conveying Pink Bear's emotional journey and ultimate joy in the resolution, making their triumph resonate."
+    }
+  ],
+  "wonder_prompt": "Think about your favorite stories. How do the authors make you *feel* like you're right there, smelling the spring air, hearing the laughter, or feeling the soft fur of a beloved bear? What magic makes those moments so real they stick with you long after you've closed the book?",
+  "wonder_example": "The wind blew a flurry of snowflakes against his face. He caught one on his tongue. It tasted like nothing and like everything. He made a perfect angel in the snow, then stood up, brushing the cold powder from his bright red suit. (Ezra Jack Keats, The Snowy Day)",
+  "build_instructions": "This is it, Chris! The moment Pink Bear has been waiting for. How does our determined bear finally make the Easter Egg Hunt happen, despite the lingering snow outside the colonial New England home? Perhaps the big, bright windows reveal a new possibility, or Susie and James's toys scattered across the large interior rooms spark an ingenious idea. Your task is to write pages 10-12, bringing Pink Bear's journey to a joyful conclusion. Show us the vibrant, happy Easter party, filled with the warmth of friendship and the thrill of the hunt. Let Pink Bear's unique voice shine as they celebrate their success, perhaps even sharing a quiet moment with Ruby, the elderly Patterdale terrier. Craft a final image that will linger in young readers' hearts, a perfect, sweet ending to this snowy spring adventure.",
+  "reflect_preview": "Once you've crafted this perfect ending, imagine the smiles on young readers' faces as they close 'Pink Bears Easter Party,' feeling the warmth of Pink Bear's triumph. Your story will be complete!"
+}

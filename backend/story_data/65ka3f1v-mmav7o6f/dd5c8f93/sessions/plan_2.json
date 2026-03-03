@@ -1,0 +1,36 @@
+{
+  "session_number": 2,
+  "title": "The Problem",
+  "story_beat": "Pink Bear wakes up full of Easter excitement, only to discover a blanket of unexpected snow has ruined all her outdoor plans.",
+  "target_pages": [
+    4,
+    5,
+    6
+  ],
+  "techniques": [
+    {
+      "name": "show_dont_tell",
+      "mode": "full",
+      "reason": "To vividly portray the unexpected snow and Pink Bear's initial reaction without simply stating her feelings."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "To establish Pink Bear's unique optimistic perspective and how it shapes her experience of the problem."
+    },
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "To make the surprising snowy Easter morning come alive for the reader through sights, sounds, and textures."
+    }
+  ],
+  "wonder_prompt": "Imagine you're Pink Bear, waking up to a surprise. How can you make your reader *feel* her excitement, then her sudden disappointment, without ever saying 'Pink Bear was excited' or 'Pink Bear was disappointed'?",
+  "wonder_example": "When Sophie gets angry, really, really angry, she roars a red roar, stomps a stompy stomp, and kicks a kicky kick. She wants to smash the whole world to smithereens. (Molly Bang, When Sophie Gets Angry - Really, Really Angry...)",
+  "build_instructions": "This session, focus on showing Pink Bear's initial joy and then her discovery of the snowy problem, making sure her optimistic spirit still shines through as the story engine starts.",
+  "page_prompts": [
+    "Write Pink Bear's joyful awakening on Easter morning, describing her anticipation and the bright, hopeful atmosphere in Susie's room before she looks outside.",
+    "Now, write the exact moment Pink Bear first peeks out the window and discovers the unexpected blanket of snow covering Susie's garden. How does her happy expression change?",
+    "Pink Bear realizes her perfect outdoor Easter plans are ruined. Show her initial disappointment and how her optimistic nature begins to spark a tiny idea, even amidst the snow."
+  ],
+  "reflect_preview": "Pink Bear has a snowy problem and a tiny spark of an idea. What will her optimistic spirit inspire her to do next to save Easter?"
+}

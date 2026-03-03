@@ -1,0 +1,31 @@
+{
+  "session_number": 2,
+  "title": "The Problem",
+  "story_beat": "Pink Bear discovers the garden is covered in snow, making the planned Easter Egg Hunt impossible.",
+  "target_pages": [
+    4,
+    5,
+    6
+  ],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "To vividly describe the unexpected snow and how it impacts the garden, making the problem tangible for young readers."
+    },
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "To develop how Pink Bear reacts to this challenge, revealing their unique personality and internal thoughts as they face the problem."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "To illustrate Pink Bear's disappointment and the severity of the snow without explicitly stating feelings or facts, letting actions and descriptions do the work."
+    }
+  ],
+  "wonder_prompt": "Read this passage. What did the author do to make you feel the rabbit's sudden worry and the messiness of the situation? How do you know what the rabbit is feeling without being told directly?",
+  "wonder_example": "The Rabbit felt a thrill of joy, then a sudden, awful lurch. The boy was carrying him outside, into the garden, where the rain had turned the grass to mud. His beautiful velveteen fur, usually so soft and clean, was about to be ruined. (Margery Williams Bianco, The Velveteen Rabbit)",
+  "build_instructions": "Pink Bear has been dreaming of the perfect Easter Egg Hunt, imagining the colorful eggs hidden amongst the blooming flowers of Susie's garden. But what happens when Pink Bear finally looks out the big, bright windows of the colonial New England home? Use your senses to describe the unexpected sight. How does the snow look, feel (even from inside), and sound (the quiet)? More importantly, how does Pink Bear react? Does their pink fur droop? Do their button eyes widen? Show us Pink Bear's disappointment and the immediate challenge they face in planning the best Easter Egg Hunt ever.",
+  "reflect_preview": "Pink Bear has discovered the snow, but what will they do? Will they give up, or will their determination to create the best Easter Egg Hunt lead them to a surprising solution?"
+}

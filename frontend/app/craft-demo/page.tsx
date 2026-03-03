@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { API_HEADERS } from "@/lib/api-client";
 
 type BlockType = "text" | "passage" | "annotation" | "prompt";
 
@@ -27,11 +28,10 @@ export default function CraftDemoPage() {
     try {
       const res = await fetch(`${backendUrl}/craft-demo`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: API_HEADERS,
         body: JSON.stringify({
           craft_technique: technique,
           context,
-          api_key: "devkey123", // TODO: replace with session-based auth before production
         }),
       });
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Sparkles, ChevronDown, Loader2, ImageIcon } from "lucide-react";
 import type { CraftBlock } from "@/lib/types";
+import { API_HEADERS } from "@/lib/api-client";
 
 interface CraftCoachProps {
   defaultTechnique?: string;
@@ -28,10 +29,7 @@ export function CraftCoach({
   const backendUrl =
     process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8123";
 
-  const apiHeaders = {
-    "Content-Type": "application/json",
-    "X-API-Key": "devkey123",
-  };
+  const apiHeaders = API_HEADERS;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

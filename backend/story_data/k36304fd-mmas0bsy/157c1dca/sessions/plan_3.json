@@ -1,0 +1,31 @@
+{
+  "session_number": 3,
+  "title": "The Journey",
+  "story_beat": "Pink Bear tries various clever but ultimately futile ways to melt the snow or move the Easter Egg hunt indoors, facing setbacks and growing frustration.",
+  "target_pages": [
+    7,
+    8,
+    9
+  ],
+  "techniques": [
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "This session focuses on the emotional heart of the story and the character's journey, making it crucial to develop Pink Bear's unique personality and internal experience through their voice and actions."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "As Pink Bear tries, stumbles, and grows, it's important to demonstrate these changes through actions and reactions rather than simply stating them. A brief reminder will help reinforce this competent skill."
+    },
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "To make Pink Bear's struggles and the snowy environment vivid and immersive, incorporating sensory details will enhance the reader's experience. A quick refresher will ensure these details are effectively used."
+    }
+  ],
+  "wonder_prompt": "Imagine you're Pink Bear, looking out at the snowy garden. What are you thinking? How do your unique thoughts and feelings make you *you*? Read this passage: \"Hey! I'm back! I bet you thought you'd never see me again, huh? Well, guess what? I'm here! And I'm ready to drive! So, what do you say? Can I drive the bus? Please? I'll be extra careful!\" What does this passage tell you about the character without explicitly stating their personality?",
+  "wonder_example": "Hey! I'm back! I bet you thought you'd never see me again, huh? Well, guess what? I'm here! And I'm ready to drive! So, what do you say? Can I drive the bus? Please? I'll be extra careful! (Mo Willems, Don't Let the Pigeon Drive the Bus!)",
+  "build_instructions": "Pink Bear, with a heavy heart but determined spirit, must find a way to clear the snow from the colonial New England garden. Describe Pink Bear's first attempts. Does Pink Bear try to shovel with a toy spoon, or perhaps rally the other stuffed animals? Show us Pink Bear's unique way of tackling this huge problem. Let us *feel* Pink Bear's frustration as the snow remains, and the quiet determination to keep trying. Remember the big bright windows and the toys scattered on the floor – how do these elements play into Pink Bear's journey to save the Easter Egg Hunt?",
+  "reflect_preview": "Pink Bear tried everything, but the snow still blankets the garden. What unexpected discovery or help might turn the tide for the Easter Egg Hunt?"
+}

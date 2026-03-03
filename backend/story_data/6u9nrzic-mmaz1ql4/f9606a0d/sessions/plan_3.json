@@ -1,0 +1,36 @@
+{
+  "session_number": 3,
+  "title": "The Journey",
+  "story_beat": "Pink Bear, heartbroken by the snowy Easter, must find the courage to face the unexpected challenge and begin to rebuild the holiday, encountering a small but significant setback.",
+  "target_pages": [
+    7,
+    8,
+    9
+  ],
+  "techniques": [
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "This session is the emotional heart where Pink Bear tries, stumbles, and grows. A full lesson on character voice will help Chris convey Pink Bear's deep feelings, determination, and love for Susie through her actions and internal thoughts, making her journey authentic and relatable."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "Chris is competent, but a brief reminder is vital to ensure Pink Bear's disappointment, her attempts to solve the problem, and her eventual spark of hope are *shown* through her actions, expressions, and interactions rather than simply stated."
+    },
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "Chris is competent, but a quick refresh will help ground Pink Bear's emotional journey in the physical world, making the snowy setting and her efforts to adapt to it feel real and immersive for the reader."
+    }
+  ],
+  "wonder_prompt": "Imagine Pink Bear has just seen the snow covering everything on Easter morning. What does she *do*? How do her actions and even her silence tell us exactly how she feels, without a single word saying 'Pink Bear was sad'?",
+  "wonder_example": "The little bear sat down on the floor. He looked at the empty jar. He looked at the big, green pickle. He looked at the jar again. Then he looked at the pickle again. He sighed a big, sad bear sigh. (Don Freeman, Corduroy)",
+  "build_instructions": "As Pink Bear embarks on her snowy Easter journey, focus on showing her deep feelings and determined spirit through her actions and reactions as she navigates unexpected challenges.",
+  "page_prompts": [
+    "Pink Bear wakes up on Easter morning, excited for the egg hunt. Write the moment she first looks out the window and sees the unexpected snow. What specific sensory details does she notice, and how does her body language show her initial shock and disappointment?",
+    "Now Pink Bear tries to find a way to make Easter happen despite the snow. Write the moment she attempts something—maybe she tries to peek outside, or looks for a basket, but realizes her usual plans are impossible. Show her frustration or sadness through her actions.",
+    "As Pink Bear sits, feeling a little lost, a tiny detail in Susie's room or a memory sparks a new idea. Write the exact moment of this small discovery or realization that begins to turn her disappointment into determination. What does she see or remember that gives her hope?"
+  ],
+  "reflect_preview": "Pink Bear has a tiny spark of an idea, but how will she possibly bring Easter joy back from a snowy morning? Her biggest challenge—and her most loving act—still awaits."
+}

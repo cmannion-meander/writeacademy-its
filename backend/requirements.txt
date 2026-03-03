@@ -1,6 +1,16 @@
 fastapi
 uvicorn[standard]
 python-dotenv
+pydantic>=2.0
 google-genai[vertexai]
 Pillow
 requests
+fpdf2
+fastapi
+uvicorn[standard]
+google-genai
+google-cloud-storage
+google-cloud-secret-manager
+pydantic
+python-multipart
+httpx

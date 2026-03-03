@@ -4,10 +4,9 @@ import asyncio
 import io
 import base64
 import pathlib
-from fastapi import FastAPI, HTTPException, Depends, Security, status
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import google.genai as genai
@@ -18,6 +17,14 @@ CACHE_DIR = pathlib.Path("lesson_cache")
 CACHE_DIR.mkdir(exist_ok=True)
 
 app = FastAPI(title="WriteAcademy Craft Coach API")
+
+# ─── v2.0 routers ─────────────────────────────────────────────────────────────
+from routers import onboard, session as session_router, story, coach, pdf  # noqa: E402
+app.include_router(onboard.router)
+app.include_router(session_router.router)
+app.include_router(story.router)
+app.include_router(coach.router)
+app.include_router(pdf.router)
 
 # --- Gemini Client Initialization ---
 # Prefer API key for local dev; fall back to Vertex AI ADC on Cloud Run.
@@ -46,16 +53,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-WRITEACADEMY_API_KEY = os.getenv("WRITEACADEMY_API_KEY", "")
-
-api_key_header = APIKeyHeader(name="X-API-Key")
-
-async def get_api_key(api_key: str = Security(api_key_header)):
-    """Dependency to check for a valid API key in the request header."""
-    if not WRITEACADEMY_API_KEY or api_key != WRITEACADEMY_API_KEY:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing API Key"
-        )
+from auth import get_api_key  # noqa: E402 — shared auth dependency
 
 class CraftDemoRequest(BaseModel):
     craft_technique: str
@@ -157,7 +155,7 @@ async def visualize(request: VisualizeRequest, _: None = Depends(get_api_key)):
     if not vertex_client:
         raise HTTPException(status_code=500, detail="Vertex AI client not configured for image generation.")
 
-    model_name = "gemini-2.5-flash-image"  # "Nano Banana"
+    model_name = "gemini-2.5-flash-image"
     image_prompt = f"""A vibrant and whimsical digital illustration for a children's storybook. The scene should be full of wonder and magic.
 
 Scene description: "{request.prompt}"

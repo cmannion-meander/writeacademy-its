@@ -1,0 +1,31 @@
+{
+  "session_number": 4,
+  "title": "The Resolution",
+  "story_beat": "Pink Bear and Susie joyfully celebrate their rebuilt Easter, creating a new, cherished memory together.",
+  "target_pages": [
+    10,
+    11,
+    12
+  ],
+  "techniques": [
+    {
+      "name": "character_voice",
+      "mode": "full",
+      "reason": "To ensure Pink Bear's unique feelings and perspective shine through as she experiences the resolution."
+    },
+    {
+      "name": "story_structure",
+      "mode": "full",
+      "reason": "To guide Chris in crafting a satisfying and complete resolution that brings the story arc to a fulfilling close."
+    }
+  ],
+  "wonder_prompt": "Think about your favorite stories. What makes an ending truly satisfying? How does the final scene make you feel like everything has come full circle, leaving a warm glow long after you close the book?",
+  "wonder_example": "And into his private room where he found his supper waiting for him and it was still hot. (Maurice Sendak, Where the Wild Things Are)",
+  "build_instructions": "As you write the final pages, focus on how Pink Bear and Susie rebuild their Easter plans, creating a resolution that feels warm, complete, and full of their shared love.",
+  "page_prompts": [
+    "Write the moment Pink Bear and Susie, after their initial disappointment, decide together to make a new kind of Easter celebration indoors. What is their first shared idea?",
+    "Now, show Pink Bear and Susie actively creating their new Easter. What specific, simple objects do they use, and how does Pink Bear feel as they work side-by-side, transforming their disappointment into a new kind of joy?",
+    "Write the final, lingering image of Pink Bear and Susie celebrating their 'Snowy Easter.' What small detail makes this new tradition feel even more special and full of love than their original plan?"
+  ],
+  "reflect_preview": "Pink Bear and Susie's Snowy Easter was a success! But as the snow melts, what new adventures await them in Susie's garden? Will their bond grow even stronger?"
+}

@@ -65,13 +65,13 @@ def generate_explorer_avatar() -> dict:
     # TODO: Create a chat session for multi-turn generation
     #
     # Create a chat session using client.chats.create() with:
-    # - model: "gemini-2.5-flash-image" (Nano Banana)
+    # - model: "gemini-2.5-flash-image"
     # - config: GenerateContentConfig with response_modalities=["TEXT", "IMAGE"]
     #
     # Hint: You need to use types.GenerateContentConfig
     # =========================================================================
     chat = client.chats.create(
-        model="gemini-2.5-flash-image",  # Nano Banana - Gemini with image generation
+        model="gemini-2.5-flash-image",
         config=genai.types.GenerateContentConfig(
             response_modalities=["TEXT", "IMAGE"]
         )

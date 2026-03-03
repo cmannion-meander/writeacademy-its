@@ -837,10 +837,7 @@ export function StructuredLesson({
     try {
       const res = await fetch(`${backendUrl}/structure-lesson`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": "devkey123",
-        },
+        headers: API_HEADERS,
         body: JSON.stringify({
           lesson_id: lessonId,
           lesson_title: lessonTitle,
