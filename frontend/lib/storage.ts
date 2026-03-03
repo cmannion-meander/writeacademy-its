@@ -114,6 +114,43 @@ export function loadProfile(uid: string): LearnerProfile | null {
   return raw ? (JSON.parse(raw) as LearnerProfile) : null;
 }
 
+// ─── Demo mode seeding ────────────────────────────────────────────────────────
+
+/**
+ * Seed localStorage with full demo data from the backend.
+ * Populates: UID, profile, story, all 4 session plans, all 12 page drafts.
+ * Illustrations are NOT stored in localStorage (too large) — they're fetched
+ * on-demand from the backend via GET /story/{uid}/{story_id}/page/{n}.
+ */
+export function seedDemoData(data: {
+  onboarding: OnboardingResult;
+  session_plans: Record<string, SessionPlan>;
+  pages: { page_number: number; text_draft: string }[];
+}): void {
+  const { onboarding, session_plans, pages } = data;
+
+  // Set UID
+  localStorage.setItem(WA_UID_KEY, onboarding.uid);
+
+  // Save profile + story + session plan 1 (standard onboarding flow)
+  saveOnboardingResult(onboarding);
+
+  // Save remaining session plans (2–4)
+  for (const [num, plan] of Object.entries(session_plans)) {
+    if (num !== "1") {
+      saveSessionPlan(onboarding.story.story_id, parseInt(num), plan);
+    }
+  }
+
+  // Save all page drafts (text only)
+  for (const page of pages) {
+    saveDraft(onboarding.story.story_id, page.page_number, page.text_draft);
+  }
+
+  // Start at session 1
+  saveCurrentSession(1);
+}
+
 // ─── Session resume check ─────────────────────────────────────────────────────
 
 export function hasActiveSession(): boolean {

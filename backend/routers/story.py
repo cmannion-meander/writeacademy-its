@@ -89,6 +89,17 @@ async def illustrate_page(
             detail=f"Page {request.page_number} not saved yet — POST /story/page first",
         )
 
+    # If the page already has an illustration and no adjustment was requested,
+    # return the cached version instantly (skips Gemini — great for demo mode).
+    if page.illustration_b64 and not request.adjustment_notes:
+        return IllustrateResponse(
+            page_number=request.page_number,
+            illustration_b64=page.illustration_b64,
+            style_anchor=story.style_anchor,
+            character_visual_notes=list(story.character_visual_notes),
+            environment_visual_notes=list(story.environment_visual_notes),
+        )
+
     # Load reference images for pages 2+: page 1 (style anchor) + most recent page (continuity).
     reference_images: list[str] = []
     if request.page_number > 1:

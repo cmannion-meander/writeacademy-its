@@ -6,6 +6,12 @@
 
 WriteAcademy is an Intelligent Tutoring System that teaches creative writing through a *story-first, Pomodoro-paced* experience. Learners write and illustrate a real children's storybook across four 25-minute sessions (~2 hours total), with Gemini 2.5 Flash providing adaptive coaching, illustration generation, and structured feedback at every step.
 
+## Live Demo
+
+https://demo.writeacademy.com
+
+> Click **"Skip to demo with a pre-written story"** on the landing page to instantly load a complete 12-page storybook with cached illustrations — no Gemini calls, no waiting.
+
 ---
 
 ## The Problem
@@ -44,9 +50,9 @@ WriteAcademy follows the classic ITS architecture — Domain, Student, Tutoring,
 │  │ 5 craft      │      │ Gemini 2.5   │      │ 3-act session│  │
 │  │ dimensions   │─────►│ Flash        │─────►│ structure    │  │
 │  │ assessed at  │      │              │      │              │  │
-│  │ onboarding   │      │ • Session    │      │ Wonder (5m)  │  │
-│  │              │      │   planning   │      │ Build  (15m) │  │
-│  │ Adaptive     │      │ • Craft      │      │ Reflect (5m) │  │
+│  │ onboarding   │      │ • Session    │      │ Discover(5m) │  │
+│  │              │      │   planning   │      │ Write  (15m) │  │
+│  │ Adaptive     │      │ • Craft      │      │ Review  (5m) │  │
 │  │ technique    │      │   coaching   │      │              │  │
 │  │ modes:       │      │ • Illustration│     │ Storybook    │  │
 │  │ full/compress│      │   generation │      │ viewer with  │  │
@@ -60,15 +66,15 @@ WriteAcademy follows the classic ITS architecture — Domain, Student, Tutoring,
 
 ### Domain Model: Gibbs Reflective Cycle
 
-![Gibbs Reflective Cycle diagram showing six phases — Description, Feelings, Evaluation, Analysis, Conclusion, Action Plan — mapped to the Wonder, Build, and Reflect session acts](docs/images/gibbs-cycle.png)
+![Gibbs Reflective Cycle diagram showing six phases — Description, Feelings, Evaluation, Analysis, Conclusion, Action Plan — mapped to the Discover, Write, and Review session acts](docs/images/gibbs-cycle.png)
 
 The six Gibbs phases aren't shown as explicit steps to the learner. Instead, they're embedded in the 3-act session structure:
 
 | Session Act | Gibbs Phases | What the learner experiences |
 |---|---|---|
-| **Wonder** (5 min) | Description + Feelings | Published book example, technique discovery |
-| **Build** (15 min) | Evaluation + Analysis | Write 3 pages with real-time craft coaching |
-| **Reflect** (5 min) | Conclusion + Action Plan | Storybook viewer, Gibbs feedback cards, next-session hook |
+| **Discover** (5 min) | Description + Feelings | Published book example, technique discovery |
+| **Write** (15 min) | Evaluation + Analysis | Write 3 pages with real-time craft coaching |
+| **Review** (5 min) | Conclusion + Action Plan | Storybook viewer, Gibbs feedback cards, next-session hook |
 
 ### Student Model: Adaptive Skill Detection
 
@@ -95,22 +101,32 @@ Every AI interaction uses Gemini 2.5 Flash:
 
 ### Interface Model: Pomodoro Sessions
 
-![Session timeline showing the three-act Pomodoro structure — Wonder (5 min), Build (15 min), Reflect (5 min) — repeated across four sessions to build a complete storybook](docs/images/session-flow.png)
+![Session timeline showing the three-act Pomodoro structure — Discover (5 min), Write (15 min), Review (5 min) — repeated across four sessions to build a complete storybook](docs/images/session-flow.png)
 
 Each session is a 25-minute Pomodoro with three acts:
 
-1. **Wonder** — a published children's book example is presented; the learner discovers the technique through analysis, not lecture
-2. **Build** — the learner writes 3 pages of their storybook with Gemini coaching and instant illustration reveals
-3. **Reflect** — view the growing storybook, read Gibbs-structured feedback, preview the next session's story beat
+1. **Discover** — a published children's book example is presented; the learner discovers the technique through analysis, not lecture
+2. **Write** — the learner writes 3 pages of their storybook with Gemini coaching and instant illustration reveals
+3. **Review** — view the growing storybook, read Gibbs-structured feedback, preview the next session's story beat
 
 ---
 
 ## Demo Flow
 
-1. **Onboarding** — enter name, write a story opening, describe your character and world
+### Full experience (~2 hours)
+
+1. **Onboarding** — enter name, describe your character and world, write a story opening
 2. **Session 1–4** — each session writes 3 illustrated pages of the storybook
-3. **Reflect** — after each session, read your book with page-turn animations and review personalised Gibbs feedback
+3. **Review** — after each session, read your book with page-turn animations and review personalised Gibbs feedback
 4. **Export** — download the finished illustrated storybook as a PDF
+
+### Quick demo (~5 minutes)
+
+1. Click **"Skip to demo"** on the landing page — seeds a complete 12-page "Pink Bears Easter Party" story
+2. Click through Discover → Write (drafts are pre-filled, illustrations load from cache) → Review
+3. Use the storybook viewer to page through the illustrated book
+4. Click "Next Session" to advance through all 4 sessions
+5. Export to PDF at any point
 
 ---
 
@@ -125,6 +141,7 @@ Each session is a 25-minute Pomodoro with three acts:
 - **Page editing** — revise any completed page and optionally re-illustrate
 - **Gibbs feedback** — expandable feedback cards structured across 6 reflective phases
 - **PDF export** — download the illustrated storybook
+- **Demo mode** — one-click demo with pre-cached story data, skips all Gemini calls
 
 ---
 
@@ -203,10 +220,13 @@ gcloud run deploy writeacademy-web \
 | POST | `/onboard` | Onboarding: skill assessment + story setup |
 | POST | `/session/plan` | Generate adaptive session plan |
 | POST | `/story/page` | Save a page draft |
-| POST | `/story/page/illustrate` | Generate/regenerate illustration |
+| POST | `/story/page/illustrate` | Generate/regenerate illustration (returns cached if available) |
+| GET | `/story/{uid}/{story_id}/page/{n}` | Get a single page with illustration |
+| POST | `/story/export` | Export storybook as PDF |
 | POST | `/coach/feedback` | Stream craft coaching (NDJSON) |
 | POST | `/coach/session-feedback` | Gibbs-cycle session feedback |
-| GET | `/story/export` | Export storybook as PDF |
+| GET | `/demo/seed` | Seed demo data (profile, story, plans, drafts) |
+| GET | `/demo/runs` | List available demo story runs |
 | GET | `/health` | Health check |
 
 ---

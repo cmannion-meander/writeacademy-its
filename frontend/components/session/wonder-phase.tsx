@@ -44,7 +44,7 @@ export function WonderPhase({ plan, sessionNumber, storyTitle, onComplete }: Won
         <div className="flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
           <Sparkles className="h-3.5 w-3.5 text-amber-600" />
           <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">
-            Session {sessionNumber} · Act 1 of 3
+            Session {sessionNumber} · Discover
           </span>
         </div>
         <span className="text-sm font-semibold text-gray-500">{plan.title}</span>

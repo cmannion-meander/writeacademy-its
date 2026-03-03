@@ -19,12 +19,13 @@ CACHE_DIR.mkdir(exist_ok=True)
 app = FastAPI(title="WriteAcademy Craft Coach API")
 
 # ─── v2.0 routers ─────────────────────────────────────────────────────────────
-from routers import onboard, session as session_router, story, coach, pdf  # noqa: E402
+from routers import onboard, session as session_router, story, coach, pdf, demo  # noqa: E402
 app.include_router(onboard.router)
 app.include_router(session_router.router)
 app.include_router(story.router)
 app.include_router(coach.router)
 app.include_router(pdf.router)
+app.include_router(demo.router)
 
 # --- Gemini Client Initialization ---
 # Prefer API key for local dev; fall back to Vertex AI ADC on Cloud Run.

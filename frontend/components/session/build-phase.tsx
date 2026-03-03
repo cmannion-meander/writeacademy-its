@@ -267,7 +267,7 @@ export function BuildPhase({
           <div className="flex items-center gap-1.5 bg-gray-100 px-3 py-1.5 rounded-full">
             <BookOpen className="h-3.5 w-3.5 text-gray-500" />
             <span className="text-xs font-bold text-gray-600 uppercase tracking-wide">
-              Act 2 · Page {currentPageNum}
+              Write · Page {currentPageNum}
             </span>
           </div>
           {/* Page progress dots */}

@@ -593,9 +593,9 @@ export default function SessionPage() {
 // ─── Phase indicator pill ─────────────────────────────────────────────────────
 
 const PHASE_CONFIG = {
-  wonder:  { label: "Wonder · Act 1",  color: "bg-indigo-100 text-indigo-700" },
-  build:   { label: "Build · Act 2",   color: "bg-amber-100 text-amber-700" },
-  reflect: { label: "Reflect · Act 3", color: "bg-green-100 text-green-700" },
+  wonder:  { label: "Discover",  color: "bg-indigo-100 text-indigo-700" },
+  build:   { label: "Write",     color: "bg-amber-100 text-amber-700" },
+  reflect: { label: "Review",    color: "bg-green-100 text-green-700" },
 } as const;
 
 function PhaseIndicator({ phase }: { phase: "wonder" | "build" | "reflect" }) {

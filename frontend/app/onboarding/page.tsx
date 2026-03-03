@@ -6,9 +6,9 @@ import Image from "next/image";
 import { ChevronRight, ArrowLeft, Sparkles, Star } from "lucide-react";
 import { LoadingPainter } from "@/components/common/loading-painter";
 import { API_HEADERS } from "@/lib/api-client";
-import { getOrCreateUid, saveOnboardingResult } from "@/lib/storage";
+import { getOrCreateUid, saveOnboardingResult, seedDemoData } from "@/lib/storage";
 import { cn } from "@/lib/utils";
-import type { OnboardingResult, SkillAssessment } from "@/lib/types";
+import type { OnboardingResult, SkillAssessment, SessionPlan } from "@/lib/types";
 
 type Step = 1 | 2 | 3 | 4 | 5;
 
@@ -105,6 +105,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState<Step>(1);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<OnboardingResult | null>(null);
+  const [demoLoading, setDemoLoading] = useState(false);
 
   const [form, setForm] = useState<FormData>({
     displayName:          "",
@@ -189,6 +190,28 @@ export default function OnboardingPage() {
     router.push("/session");
   }
 
+  async function handleDemoMode() {
+    setDemoLoading(true);
+    setError(null);
+    try {
+      const resp = await fetch(`${backendUrl}/demo/seed`);
+      if (!resp.ok) {
+        const detail = await resp.json().catch(() => ({ detail: resp.statusText }));
+        throw new Error(detail.detail ?? resp.statusText);
+      }
+      const data = await resp.json() as {
+        onboarding: OnboardingResult;
+        session_plans: Record<string, SessionPlan>;
+        pages: { page_number: number; text_draft: string }[];
+      };
+      seedDemoData(data);
+      router.push("/session");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Demo mode failed. Is the backend running?");
+      setDemoLoading(false);
+    }
+  }
+
   // ─── Render ────────────────────────────────────────────────────────────────
 
   return (
@@ -226,6 +249,10 @@ export default function OnboardingPage() {
                 </p>
               </div>
 
+              {error && step === 1 && (
+                <p className="text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">{error}</p>
+              )}
+
               {/* Name input */}
               <div className="space-y-3">
                 <Field label="What should we call you?" hint="Your first name or pen name">
@@ -254,6 +281,17 @@ export default function OnboardingPage() {
               <div className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
                 <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
                 <span>Takes about 5 minutes to set up · No account needed</span>
+              </div>
+
+              {/* Demo mode */}
+              <div className="pt-2 border-t border-gray-100">
+                <button
+                  onClick={handleDemoMode}
+                  disabled={demoLoading}
+                  className="w-full flex items-center justify-center gap-2 text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors disabled:opacity-50"
+                >
+                  {demoLoading ? "Loading demo…" : "Skip to demo with a pre-written story"}
+                </button>
               </div>
             </div>
           )}

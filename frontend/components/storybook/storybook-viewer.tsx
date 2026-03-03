@@ -112,43 +112,34 @@ export function StorybookViewer({
             </div>
           )}
 
-          {/* Content page — book spread */}
+          {/* Content page — storybook spread */}
           {contentPage && (
-            <div className="grid grid-cols-[3fr_2fr] min-h-[400px]">
-              {/* Left: illustration */}
+            <div className="flex flex-col min-h-[480px]">
+              {/* Top: illustration — fills generously */}
               <div className="relative bg-amber-50/40 overflow-hidden">
                 {contentPage.illustration_b64 ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={contentPage.illustration_b64}
                     alt={`Page ${contentPage.page_number}`}
-                    className="w-full h-full object-cover"
+                    className="w-full aspect-[16/10] object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-amber-50">
+                  <div className="w-full aspect-[16/10] flex items-center justify-center bg-amber-50">
                     <BookOpen className="h-12 w-12 text-amber-200" />
                   </div>
                 )}
-                <div className="absolute top-3 left-3 bg-black/40 text-white text-xs font-bold px-2.5 py-1 rounded-full backdrop-blur-sm">
-                  p. {contentPage.page_number}
-                </div>
               </div>
 
-              {/* Right: text */}
+              {/* Bottom: text — children's book typography */}
               <div
-                className="flex flex-col justify-between px-7 py-7 bg-[#fffdf8] border-l border-amber-100"
-                style={{ boxShadow: "inset 3px 0 6px -3px rgba(0,0,0,0.06)" }}
+                className="flex-1 flex flex-col justify-center px-10 py-8 bg-[#fffdf8]"
+                style={{ boxShadow: "inset 0 3px 6px -3px rgba(0,0,0,0.04)" }}
               >
-                <div className="flex items-center gap-2 mb-5">
-                  <BookOpen className="h-3.5 w-3.5 text-amber-300 shrink-0" />
-                  <span className="text-xs font-semibold text-amber-400 uppercase tracking-widest truncate">
-                    {title}
-                  </span>
-                </div>
-                <p className="text-lg text-gray-800 leading-snug flex-1 font-serif whitespace-pre-wrap">
+                <p className="text-xl md:text-2xl text-gray-800 leading-relaxed font-serif whitespace-pre-wrap text-center">
                   {contentPage.text_draft}
                 </p>
-                <p className="text-xs text-gray-300 mt-5 text-right tabular-nums">
+                <p className="text-xs text-amber-300 mt-6 text-center tabular-nums tracking-wider">
                   — {contentPage.page_number} —
                 </p>
               </div>

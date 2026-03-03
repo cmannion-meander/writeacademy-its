@@ -436,14 +436,14 @@ async def generate_illustration(
     if len(ref_images) >= 2:
         reference_note = (
             "STYLE REFERENCES: Two reference images are attached.\n"
-            "Image 1 is page 1 — the GROUND TRUTH for character design and art style.\n"
-            "Image 2 is the most recent page — match its visual continuity for scene flow.\n"
-            "Both are canonical. When in doubt, page 1 wins for character appearance.\n\n"
+            "Image 1 is page 1 — ABSOLUTE GROUND TRUTH. Character design, art style, line weight, "
+            "colour saturation, and rendering technique MUST match this image exactly. It wins ALL ties.\n"
+            "Image 2 is the most recent page — match its visual continuity for scene flow (secondary reference).\n\n"
         )
     elif len(ref_images) == 1:
         reference_note = (
-            "STYLE REFERENCE: The attached image is page 1 of this book. "
-            "Match the character appearance, colour palette, and illustration style exactly.\n\n"
+            "STYLE REFERENCE: The attached image is page 1 of this book — ABSOLUTE GROUND TRUTH. "
+            "Match the character appearance, colour palette, rendering technique, and illustration style exactly.\n\n"
         )
     else:
         reference_note = ""
@@ -459,17 +459,26 @@ async def generate_illustration(
 
 {style_directive}
 
+── WHAT MUST STAY THE SAME (locked for entire book) ──
+
 {char_context}
 
 {env_context}
 
+── WHAT CHANGES THIS PAGE (unique to this scene) ──
+
 SCENE TO ILLUSTRATE:
 \"\"\"{page_text[:600]}\"\"\"{adjustment_note}
+
+COMPOSITION DIRECTION:
+- Show a DIFFERENT framing than the previous page: vary between close-up, mid-shot, wide establishing shot, over-the-shoulder, bird's-eye, or ground-level angle
+- The SETTING within the scene should evolve (different room, outdoor vs indoor, new location) while the ENVIRONMENT style (lighting, palette, season) stays locked
+- Characters must be recognisable instantly by face, hair, outfit — but their POSE, EXPRESSION, and ACTION must be unique to this moment
 
 REQUIREMENTS (non-negotiable):
 - ALL characters must match the CHARACTER BIBLE precisely — same face, hair, clothes, accessory every page
 - Season, weather, time of day, and colour palette MUST match the ENVIRONMENT BIBLE exactly
-- If reference images are attached, treat them as ground truth for character appearance and style
+- If reference images are attached, treat page 1 as ABSOLUTE ground truth for character appearance
 - Warm, age-appropriate imagery with compositional breathing room (especially bottom third)
 - No embedded text, letters, numbers, watermarks, or speech bubbles
 - Full-bleed illustration suitable for a picture book spread"""
