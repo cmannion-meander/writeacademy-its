@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, ChevronRight, ArrowLeft, Sparkles, Star } from "lucide-react";
+import Image from "next/image";
+import { ChevronRight, ArrowLeft, Sparkles, Star } from "lucide-react";
 import { LoadingPainter } from "@/components/common/loading-painter";
 import { API_HEADERS } from "@/lib/api-client";
 import { getOrCreateUid, saveOnboardingResult } from "@/lib/storage";
@@ -195,7 +196,7 @@ export default function OnboardingPage() {
       {/* Top bar */}
       <header className="flex items-center justify-between px-6 py-4 max-w-2xl mx-auto w-full">
         <div className="flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-[#F59E42]" />
+          <Image src="/logo-transparent.png" alt="WriteAcademy" width={28} height={24} className="h-6 w-auto" />
           <span className="font-bold text-gray-800 text-sm tracking-tight">WriteAcademy</span>
         </div>
         {step >= 2 && step <= 3 && (

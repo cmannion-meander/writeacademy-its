@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Save, RefreshCw, ArrowLeft, X, RotateCcw } from "lucide-react";
+import Image from "next/image";
+import { Save, RefreshCw, ArrowLeft, X, RotateCcw } from "lucide-react";
 import { WonderPhase } from "@/components/session/wonder-phase";
 import { BuildPhase } from "@/components/session/build-phase";
 import { ReflectPhase } from "@/components/session/reflect-phase";
@@ -386,8 +387,8 @@ export default function SessionPage() {
       {/* Session header */}
       <header className="sticky top-0 z-40 bg-white border-b border-gray-100">
         <div className="max-w-3xl mx-auto flex items-center justify-between px-6 py-3">
-          <div className="flex items-center gap-3">
-            <BookOpen className="h-5 w-5 text-[#F59E42]" />
+          <div className="flex items-center gap-2.5">
+            <Image src="/logo-transparent.png" alt="WriteAcademy" width={28} height={24} className="h-6 w-auto" />
             <div className="flex flex-col">
               <span className="text-xs font-bold text-gray-800 leading-tight">
                 {story?.title ?? "Your Storybook"}

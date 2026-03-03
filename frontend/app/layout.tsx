@@ -5,8 +5,12 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Write Academy",
-  description: "Experiential creative writing courses powered by AI",
+  title: "WriteAcademy",
+  description: "AI-powered creative writing tutor — write and illustrate your own storybook",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
