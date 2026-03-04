@@ -97,21 +97,37 @@ function SessionPageInner() {
         sessionPlan = await fetchSessionPlan(storedUid, storyId, currentSession);
       }
 
-      if (!sessionPlan) {
+      const requestedPhase = searchParams.get("phase");
+
+      if (!sessionPlan && requestedPhase !== "reflect") {
         setLoadError("Could not load session plan. Check that the backend is running.");
         setPhase("error");
         return;
       }
 
-      setPlan(sessionPlan);
+      // For reflect-only mode (demo viewer), use a minimal fallback plan
+      if (!sessionPlan) {
+        sessionPlan = {
+          session_number: currentSession,
+          title: storedStory.title,
+          story_beat: "",
+          target_pages: [],
+          techniques: [],
+          wonder_prompt: "",
+          wonder_example: "",
+          build_instructions: "",
+          page_prompts: [],
+          reflect_preview: "",
+        };
+      }
 
-      // If ?phase=reflect is set (e.g. from "View finished storybook"), skip to review
-      const requestedPhase = searchParams.get("phase");
+      setPlan(sessionPlan);
       if (requestedPhase === "reflect") {
-        // Load all illustrations from backend for a complete view
-        const updated = await loadMissingIllustrations(storedStory.story_id, allCompletedPages);
-        setCompletedPages(updated);
+        // Go to reflect immediately, then load illustrations in the background
         setPhase("reflect");
+        loadMissingIllustrations(storedUid, storedStory.story_id, allCompletedPages).then(
+          updated => setCompletedPages(updated),
+        );
       } else {
         setPhase("wonder");
       }
@@ -206,26 +222,30 @@ function SessionPageInner() {
 
     // Silently fetch any illustrations the backend has but we lost due to localStorage quota.
     // State update will cause reflect thumbnails to pop in as they arrive.
-    const updatedPages = await loadMissingIllustrations(story.story_id, completedPages);
+    const updatedPages = await loadMissingIllustrations(uid, story.story_id, completedPages);
     setCompletedPages(updatedPages);
   }
 
   /**
-   * For each completed page that has no illustration in state, try to fetch it
-   * from the backend (GET /story/{uid}/{story_id}/page/{n}).
-   * Returns a new array with any newly-fetched illustrations merged in.
+   * For each completed page that has no illustration in state:
+   * 1. Try GET /story/{uid}/{story_id}/page/{n} (returns cached illustration).
+   * 2. If still null, fall back to POST /story/page/illustrate to generate one.
+   *    Generation calls run sequentially to avoid overwhelming the backend.
+   * Updates state incrementally so illustrations pop in as they arrive.
    */
   async function loadMissingIllustrations(
+    uidParam: string,
     storyId: string,
     pages: (StoryPage & { illustration_b64?: string })[],
   ): Promise<(StoryPage & { illustration_b64?: string })[]> {
     const missing = pages.filter(p => !p.illustration_b64);
     if (missing.length === 0) return pages;
 
+    // Phase 1: Try to GET all missing illustrations in parallel (fast — cached)
     const fetched = await Promise.allSettled(
       missing.map(async p => {
         const res = await fetch(
-          `${backendUrl}/story/${uid}/${storyId}/page/${p.page_number}`,
+          `${backendUrl}/story/${uidParam}/${storyId}/page/${p.page_number}`,
           { headers: API_HEADERS },
         );
         if (!res.ok) return null;
@@ -242,10 +262,43 @@ function SessionPageInner() {
       }
     });
 
-    if (updates.size === 0) return pages;
-    return pages.map(p =>
-      updates.has(p.page_number) ? { ...p, illustration_b64: updates.get(p.page_number) } : p,
-    );
+    let currentPages = updates.size > 0
+      ? pages.map(p => updates.has(p.page_number) ? { ...p, illustration_b64: updates.get(p.page_number) } : p)
+      : pages;
+
+    // Phase 2: For pages still missing illustrations, generate via POST (sequential)
+    const stillMissing = currentPages.filter(p => !p.illustration_b64);
+    if (stillMissing.length > 0) {
+      for (const page of stillMissing) {
+        try {
+          const res = await fetch(`${backendUrl}/story/page/illustrate`, {
+            method: "POST",
+            headers: API_HEADERS,
+            body: JSON.stringify({
+              uid: uidParam,
+              story_id: storyId,
+              page_number: page.page_number,
+            }),
+          });
+          if (res.ok) {
+            const data = await res.json() as { illustration_b64?: string };
+            if (data.illustration_b64) {
+              // Update state incrementally so each illustration pops in as it arrives
+              currentPages = currentPages.map(p =>
+                p.page_number === page.page_number ? { ...p, illustration_b64: data.illustration_b64 } : p,
+              );
+              setCompletedPages([...currentPages]);
+              // Also cache in localStorage
+              try { savePageIllustration(storyId, page.page_number, data.illustration_b64); } catch { /* quota */ }
+            }
+          }
+        } catch {
+          // Generation failed for this page — continue to next
+        }
+      }
+    }
+
+    return currentPages;
   }
 
   // ─── Next-session flow ────────────────────────────────────────────────────────
@@ -276,7 +329,7 @@ function SessionPageInner() {
     // Hydrate fresh — prior pages from the previous session are still in localStorage
     const hydrated = hydrateCompletedPages(story.story_id, nextSession);
     // Pull any missing illustrations from the backend (localStorage can't hold them all)
-    const updated = await loadMissingIllustrations(story.story_id, hydrated);
+    const updated = await loadMissingIllustrations(uid, story.story_id, hydrated);
     setCompletedPages(updated);
     setPhase("wonder");
   }
@@ -367,11 +420,8 @@ function SessionPageInner() {
         body: JSON.stringify({
           title: story.title,
           author_name: displayName || story.character_name,
-          pages: completedPages.map(p => ({
-            page_number: p.page_number,
-            text_draft: p.text_draft,
-            illustration_b64: p.illustration_b64 ?? null,
-          })),
+          uid,
+          story_id: story.story_id,
         }),
       });
       if (!resp.ok) {

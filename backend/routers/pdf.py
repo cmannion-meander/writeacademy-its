@@ -21,6 +21,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from auth import get_api_key
+from services import story_service
 
 router = APIRouter(tags=["export"])
 
@@ -43,7 +44,11 @@ class ExportPageData(BaseModel):
 class ExportRequest(BaseModel):
     title: str
     author_name: str = "A Young Author"
-    pages: list[ExportPageData] = Field(min_length=1)
+    # Option A: pages with inline illustrations (legacy, can hit size limits)
+    pages: list[ExportPageData] = Field(default_factory=list)
+    # Option B: uid + story_id — backend loads illustrations from disk (preferred)
+    uid: Optional[str] = None
+    story_id: Optional[str] = None
 
 
 # ─── Text sanitiser (Helvetica is latin-1 only) ─────────────────────────────
@@ -185,7 +190,12 @@ async def export_story(
 ) -> StreamingResponse:
     """
     Export completed pages as a PDF storybook.
-    Accepts story data + pages inline from the frontend.
+
+    Two modes:
+    - **Server-side** (preferred): pass `uid` + `story_id` — the backend loads
+      pages and illustrations from disk.  Avoids huge request bodies.
+    - **Inline** (legacy): pass `pages` with `illustration_b64` embedded.
+
     Returns application/pdf — the frontend triggers a file download.
     """
     if not _FPDF_AVAILABLE:
@@ -194,10 +204,31 @@ async def export_story(
             detail="fpdf2 is not installed. Run: pip install fpdf2",
         )
 
+    # Resolve pages — prefer server-side loading when uid + story_id are given
+    export_pages: list[ExportPageData] = []
+
+    if request.uid and request.story_id:
+        # Load from disk (includes illustrations — no size limit in request)
+        disk_pages = story_service.get_all_pages(
+            request.uid, request.story_id, exclude_illustrations=False,
+        )
+        if not disk_pages:
+            raise HTTPException(status_code=404, detail="No pages found for this story")
+        for p in disk_pages:
+            export_pages.append(ExportPageData(
+                page_number=p.page_number,
+                text_draft=p.text_draft,
+                illustration_b64=p.illustration_b64,
+            ))
+    elif request.pages:
+        export_pages = request.pages
+    else:
+        raise HTTPException(status_code=400, detail="Provide uid + story_id, or pages inline")
+
     try:
         pdf = StorybookPDF(title=request.title, author=request.author_name)
 
-        for page in sorted(request.pages, key=lambda p: p.page_number):
+        for page in sorted(export_pages, key=lambda p: p.page_number):
             pdf.add_story_page(
                 page_number=page.page_number,
                 text=page.text_draft,

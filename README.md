@@ -219,8 +219,7 @@ See the [Local Setup](#local-setup) section above. Requires Python 3.12+, Node.j
 
 ### Option 3: Watch the Demo Video
 
-<!-- TODO: Replace with actual YouTube link before submission -->
-A full walkthrough of the experience is available in our [demo video](https://youtube.com).
+A full walkthrough of the experience is available in our [demo video](https://youtu.be/zDKgQ8y3bI4).
 
 ---
 
