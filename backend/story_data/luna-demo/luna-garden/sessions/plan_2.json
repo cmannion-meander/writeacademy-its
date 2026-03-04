@@ -1,0 +1,32 @@
+{
+  "session_number": 2,
+  "title": "The Golden Seed",
+  "story_beat": "Luna discovers a magical golden seed in a puddle and plants it. A tiny sprout appears with a glowing raindrop — and Luna begins to nurture it with whispers, songs, and stories about sunshine.",
+  "target_pages": [4, 5, 6],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "Quick reinforcement — the golden seed's warmth and hum need precise sensory language."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "full",
+      "reason": "Luna's wonder and care for the sprout should be shown through her daily rituals, not stated."
+    },
+    {
+      "name": "visual_thinking",
+      "mode": "full",
+      "reason": "The transition from grey to green is a visual story — every colour choice matters for the illustration."
+    }
+  ],
+  "wonder_prompt": "Have you ever found something small and ordinary that turned out to be extraordinary? A pebble, a feather, a forgotten seed? What made it special — was it the thing itself, or how you treated it?",
+  "wonder_example": "\"'A seed is sleepy. It lies there, tucked inside its blanket, snoozing away. It doesn't make a peep. Until one day — it wakes up.'\" — Dianna Hutts Aston, *A Seed Is Sleepy*. Notice how the author gives the seed a personality through verbs like 'sleepy,' 'snoozing,' and 'wakes up.'",
+  "build_instructions": "Luna finds something impossible: a golden seed humming in a puddle. Write the moment of discovery — make the reader feel the seed's warmth in Luna's palm. Then show the days that follow: Luna planting it, crouching down to watch, whispering and singing. The first green sprout pushes through grey soil. On its single leaf sits a raindrop that glows like a lantern. Colour is beginning to return.",
+  "page_prompts": [
+    "The discovery: Luna finds the golden seed in a puddle. It hums in her palm. She kneels in mud and plants it. Use touch and sound.",
+    "The first sign of magic: a tiny green sprout with one perfect leaf. A raindrop on it glows like a lantern. This is the first colour in the grey world.",
+    "Show Luna's daily rituals of care: whispering, singing, telling stories about sunshine she's only seen in books. The sprout grows and grows."
+  ],
+  "reflect_preview": "The sprout is growing fast. Next session, it will bloom into something extraordinary — a flower bright as a tiny sun. And wherever its light touches, colour will seep back into the world."
+}

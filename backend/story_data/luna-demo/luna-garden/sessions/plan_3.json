@@ -1,0 +1,32 @@
+{
+  "session_number": 3,
+  "title": "Colour Returns",
+  "story_beat": "The sprout blooms into a brilliant orange flower. Wherever its light touches, colour returns — fences turn green, paths blush pink. Luna plants seeds everywhere, and the other children finally come outside.",
+  "target_pages": [7, 8, 9],
+  "techniques": [
+    {
+      "name": "sensory_detail",
+      "mode": "compress",
+      "reason": "The explosion of colour needs vivid, specific details — name exact colours and where they appear."
+    },
+    {
+      "name": "story_structure",
+      "mode": "full",
+      "reason": "This is the story's turning point. The transformation must build page by page, from one flower to the whole village."
+    },
+    {
+      "name": "visual_thinking",
+      "mode": "full",
+      "reason": "The colour spreading outward is the heart of the visual narrative — each illustration should show more colour than the last."
+    }
+  ],
+  "wonder_prompt": "Think about a time something small changed everything around it — a smile that spread through a room, a kind act that inspired others. How does change ripple outward?",
+  "wonder_example": "\"And then something amazing happened. The grey smudge on Peter's paper started to change... it turned into a bright red dot. Just a dot. But what a dot it was.\" — Peter H. Reynolds, *The Dot*. Notice how Reynolds makes a tiny action (one dot) feel enormous through pacing and emphasis.",
+  "build_instructions": "The flower blooms — the brightest orange Luna has ever seen, like a tiny sun. Now show the magic spreading: wherever the flower's light touches, colour returns. The grey fence turns green. The brown path blushes pink. Luna gets an idea — she plants seeds everywhere. In cracks, corners, forgotten patches of mud. Stems climb lampposts. Buds burst along walls. Vines curl around doorframes. And the other children, watching from their windows, finally come outside.",
+  "page_prompts": [
+    "The bloom: the brightest orange flower opens. Wherever its light touches, colour seeps back. The grey fence turns green, the brown path turns pink. Still raining — but now the rain feeds the magic.",
+    "Luna plants seeds everywhere: in every crack, corner, and forgotten patch of mud. Describe the village transforming — stems on lampposts, buds on walls, vines around doorframes.",
+    "The tipping point: the other children press their faces to windows and gasp. Then, one by one, they pull on their boots and come outside. Show this moment of connection."
+  ],
+  "reflect_preview": "The village is almost transformed. In our final session, everyone works together — and Luna discovers what the rain was trying to tell her all along."
+}

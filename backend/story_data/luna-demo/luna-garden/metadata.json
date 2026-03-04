@@ -1,0 +1,33 @@
+{
+  "story_id": "luna-garden",
+  "title": "Luna and the Light Garden",
+  "premise": "A curious girl discovers a magical seed that grows flowers of light, bringing colour back to her grey, rain-soaked village.",
+  "character_name": "Luna",
+  "character_description": "Luna is about 5 years old with curly dark hair tied with a bright yellow ribbon, wearing a blue dress with white polka dots and red rain boots. She has a round face, big brown eyes, and warm brown skin. She is curious, brave, and loves splashing in puddles.",
+  "world_description": "A grey, rainy village with simple cottages with stone walls. Rolling green hills in the background. The village transforms from muted greys into vibrant colour as Luna's garden grows.",
+  "target_age": "4-8",
+  "genre": "picture_book",
+  "style_anchor": "Soft watercolor children's book illustration for 'Luna and the Light Garden'. Warm palette with muted backgrounds and pops of bright color on Luna and her flowers. Gentle, rounded shapes. Soft lighting. No harsh shadows. Style of Oliver Jeffers meets Beatrix Potter. Consistent character design throughout.",
+  "character_visual_notes": [
+    "**Main Character: Luna**",
+    "**Age:** About 5 years old, small and slender.",
+    "**Skin:** Warm brown skin with rosy cheeks.",
+    "**Hair:** Curly dark brown/black hair, always tied with a bright yellow ribbon.",
+    "**Eyes:** Big, round brown eyes with a curious, determined expression.",
+    "**Clothing always worn:** Blue dress with white polka dots, red rain boots. Sometimes wears a coat over the dress when outside.",
+    "**One visual signature:** The bright yellow hair ribbon — visible in every scene, even at a distance.",
+    "**Grandmother:** Elderly woman with warm brown skin, silver-grey hair in a bun, kind wrinkled face, wearing a soft cardigan and apron. Always seen from the cottage doorway."
+  ],
+  "environment_visual_notes": [
+    "**Setting:** Small village with stone-walled cottages, cobblestone paths, lampposts, and rolling green hills in the background.",
+    "**Weather:** Constant gentle rain throughout — rain streaks visible in every outdoor scene.",
+    "**COLOR PROGRESSION (critical for consistency):**",
+    "Pages 1-3: Muted greys and blues. The village is desaturated. Only Luna's outfit has colour (blue dress, red boots, yellow ribbon).",
+    "Pages 4-6: Greens begin to appear (the sprout). One bright colour introduced (the golden seed, the glowing raindrop). Background remains mostly grey.",
+    "Pages 7-9: Increasingly colourful. Orange flower radiates colour outward. Fence turns green, path turns pink. More flowers climbing lampposts and walls.",
+    "Pages 10-12: Full, vibrant colour everywhere. Red poppies, purple wisteria, yellow sunflowers. The village is transformed. Rain still falls but everything glows with warmth.",
+    "**Lighting:** Soft, diffused light through rain clouds. No harsh shadows. Pages 10-12 have warmer, golden-tinted lighting."
+  ],
+  "current_session": 1,
+  "created_at": "2026-03-04 10:00:00.000000"
+}

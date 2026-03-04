@@ -197,7 +197,7 @@ npm run dev
 
 The app is deployed and running on Google Cloud Run:
 
-**→ [https://demo.writeacademy.com](https://demo.writeacademy.com)**
+**→ [https://writeacademy-web-495938100779.us-central1.run.app/](https://writeacademy-web-495938100779.us-central1.run.app/)**
 
 No login required. Walk through the full experience in ~10 minutes:
 
@@ -261,6 +261,14 @@ gcloud run deploy writeacademy-web \
 | GET | `/demo/seed` | Seed demo data (profile, story, plans, drafts) |
 | GET | `/demo/runs` | List available demo story runs |
 | GET | `/health` | Health check |
+
+---
+
+## Early Access
+
+WriteAcademy is in active development. Sign up to get notified when we launch:
+
+**[Join the waitlist](https://docs.google.com/forms/d/e/1FAIpQLSdUjpJqFjJVyyxoj5vpsxpI4xR3Sc1e57bdDLHmfqZ85gh2vA/viewform?usp=publish-editor)**
 
 ---
 

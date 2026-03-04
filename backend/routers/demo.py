@@ -35,8 +35,8 @@ STORY_DATA = pathlib.Path("story_data")
 
 # ─── Default demo run ────────────────────────────────────────────────────────
 
-DEFAULT_DEMO_UID = "k36304fd-mmas0bsy"
-DEFAULT_DEMO_STORY_ID = "157c1dca"
+DEFAULT_DEMO_UID = "luna-demo"
+DEFAULT_DEMO_STORY_ID = "luna-garden"
 
 
 def _list_demo_runs() -> list[dict]:

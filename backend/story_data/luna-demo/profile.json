@@ -1,0 +1,25 @@
+{
+  "uid": "luna-demo",
+  "display_name": "Demo Writer",
+  "skill_levels": {
+    "sensory_detail": "competent",
+    "character_voice": "developing",
+    "show_dont_tell": "competent",
+    "story_structure": "strong",
+    "visual_thinking": "strong"
+  },
+  "completed_techniques": [],
+  "writing_samples": [
+    {
+      "text": "Luna lived in a village where the rain never stopped. It pattered on rooftops. It drummed on windows. It turned every puddle into a tiny grey sea. But Luna pulled on her red boots, buttoned up her coat, and splashed straight out the door.",
+      "overall_level": "intermediate",
+      "suggested_focus": "Focus on developing character voice through dialogue and internal thoughts to bring Luna's curiosity and determination to life."
+    }
+  ],
+  "style_preferences": {
+    "tone": "warm",
+    "genre": "picture_book",
+    "learning_style": "visual"
+  },
+  "created_at": "2026-03-04 10:00:00.000000"
+}

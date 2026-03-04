@@ -314,6 +314,28 @@ export function ReflectPhase({
           </button>
         )}
       </div>
+
+      {/* Early access CTA */}
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdUjpJqFjJVyyxoj5vpsxpI4xR3Sc1e57bdDLHmfqZ85gh2vA/viewform?usp=publish-editor"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 px-6 py-5 text-center hover:shadow-md transition-shadow"
+      >
+        <p className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-1">
+          Enjoyed the experience?
+        </p>
+        <p className="text-base font-bold text-gray-900">
+          Sign up for early access
+        </p>
+        <p className="text-sm text-gray-500 mt-1">
+          Be the first to know when WriteAcademy launches.
+        </p>
+        <span className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-[#F59E42]">
+          Join the waitlist
+          <ChevronRight className="h-4 w-4" />
+        </span>
+      </a>
     </div>
   );
 }

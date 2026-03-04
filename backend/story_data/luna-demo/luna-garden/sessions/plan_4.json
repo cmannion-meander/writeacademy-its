@@ -1,0 +1,32 @@
+{
+  "session_number": 4,
+  "title": "Everything You Need",
+  "story_beat": "The whole village plants and blooms together. It still rains — but the rain feeds the flowers, and the flowers feed the colour, and the colour feeds something warm inside everyone. Luna discovers what the rain was saying all along.",
+  "target_pages": [10, 11, 12],
+  "techniques": [
+    {
+      "name": "story_structure",
+      "mode": "full",
+      "reason": "The ending must land perfectly — resolving Luna's question from page 3 and completing the emotional arc."
+    },
+    {
+      "name": "character_voice",
+      "mode": "compress",
+      "reason": "Luna's final words carry the story's theme. They must sound like her — simple, wise, wonder-filled."
+    },
+    {
+      "name": "show_dont_tell",
+      "mode": "compress",
+      "reason": "The theme should emerge from the image of Luna standing in her garden, not from a moral stated directly."
+    }
+  ],
+  "wonder_prompt": "Think about the best endings you've ever read. The ones that make you close the book and just sit there, feeling full. What do they all have in common? They don't explain the meaning — they show it.",
+  "wonder_example": "\"And in that room there was a telephone and a red balloon and a picture of the cow jumping over the moon... Goodnight noises everywhere.\" — Margaret Wise Brown, *Goodnight Moon*. Notice how the ending circles back to the beginning, creating a sense of completeness and peace.",
+  "build_instructions": "Bring it home. The children work together — planting, watering, singing, whispering. The whole village blooms: red poppies on rooftops, purple wisteria dripping from eaves, yellow sunflowers tall as the children. It still rains. But now the rain has purpose. Luna's grandmother watches from the doorway. She asks the question we've been waiting for. And Luna — rain on her cheeks, flowers at her feet, the whole village bright around her — gives us the answer.",
+  "page_prompts": [
+    "The community: together they plant and water, sing and whisper. The whole village blooms. Name specific flowers in specific places — poppies on rooftops, wisteria from eaves, sunflowers tall as children.",
+    "The reframe: it still rains every single day. But now the rain feeds the flowers, and the flowers feed the colour, and the colour feeds something warm inside everyone. Show this chain of connection.",
+    "The answer: Luna's grandmother asks from the doorway: 'You figured it out, didn't you? What the rain was trying to tell you.' Luna looks up — rain, flowers, bright village — and answers: 'Everything you need to grow is already here.'"
+  ],
+  "reflect_preview": "Your storybook is complete! Look back through all twelve pages and see the journey — from grey rain to a garden of light. You did this."
+}

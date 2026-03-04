@@ -555,6 +555,29 @@ export default function OnboardingPage() {
             </div>
           )}
         </div>
+
+        {/* Early access CTA — always visible */}
+        {(step === 1 || step === 5) && (
+          <div className="w-full max-w-lg mt-12 wa-animate-fade-in">
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdUjpJqFjJVyyxoj5vpsxpI4xR3Sc1e57bdDLHmfqZ85gh2vA/viewform?usp=publish-editor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-gray-100 bg-white/60 backdrop-blur px-6 py-4 text-center hover:border-amber-200 hover:shadow-sm transition-all"
+            >
+              <p className="text-sm font-semibold text-gray-700">
+                Want to use WriteAcademy with your students?
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                Sign up for early access and product updates.
+              </p>
+              <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-[#F59E42]">
+                Join the waitlist
+                <ChevronRight className="h-3 w-3" />
+              </span>
+            </a>
+          </div>
+        )}
       </main>
     </div>
   );
