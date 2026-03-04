@@ -22,6 +22,9 @@ node_modules/
 # macOS
 .DS_Store
 
+# Lesson cache (v1 legacy, generated)
+lesson_cache/
+
 # Editors
 .vscode/
 .idea/

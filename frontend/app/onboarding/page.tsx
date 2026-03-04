@@ -6,7 +6,7 @@ import Image from "next/image";
 import { ChevronRight, ArrowLeft, Sparkles, Star } from "lucide-react";
 import { LoadingPainter } from "@/components/common/loading-painter";
 import { API_HEADERS } from "@/lib/api-client";
-import { getOrCreateUid, saveOnboardingResult, seedDemoData } from "@/lib/storage";
+import { getOrCreateUid, saveOnboardingResult, saveCurrentSession, seedDemoData } from "@/lib/storage";
 import { cn } from "@/lib/utils";
 import type { OnboardingResult, SkillAssessment, SessionPlan } from "@/lib/types";
 
@@ -190,7 +190,7 @@ export default function OnboardingPage() {
     router.push("/session");
   }
 
-  async function handleDemoMode() {
+  async function handleDemoMode(viewFinished = false) {
     setDemoLoading(true);
     setError(null);
     try {
@@ -205,7 +205,13 @@ export default function OnboardingPage() {
         pages: { page_number: number; text_draft: string }[];
       };
       seedDemoData(data);
-      router.push("/session");
+      if (viewFinished) {
+        // Jump to session 4 review to show the completed storybook
+        saveCurrentSession(4);
+        router.push("/session?phase=reflect");
+      } else {
+        router.push("/session");
+      }
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Demo mode failed. Is the backend running?");
       setDemoLoading(false);
@@ -283,14 +289,21 @@ export default function OnboardingPage() {
                 <span>Takes about 5 minutes to set up · No account needed</span>
               </div>
 
-              {/* Demo mode */}
-              <div className="pt-2 border-t border-gray-100">
+              {/* Demo shortcuts */}
+              <div className="pt-2 border-t border-gray-100 space-y-1">
                 <button
-                  onClick={handleDemoMode}
+                  onClick={() => handleDemoMode(true)}
                   disabled={demoLoading}
-                  className="w-full flex items-center justify-center gap-2 text-sm text-gray-400 hover:text-gray-600 py-2 transition-colors disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 text-sm text-[#F59E42] hover:text-amber-600 font-medium py-2 transition-colors disabled:opacity-50"
                 >
-                  {demoLoading ? "Loading demo…" : "Skip to demo with a pre-written story"}
+                  {demoLoading ? "Loading…" : "View a finished storybook example"}
+                </button>
+                <button
+                  onClick={() => handleDemoMode(false)}
+                  disabled={demoLoading}
+                  className="w-full flex items-center justify-center gap-2 text-xs text-gray-400 hover:text-gray-600 py-1.5 transition-colors disabled:opacity-50"
+                >
+                  {demoLoading ? "Loading…" : "Or skip to demo session"}
                 </button>
               </div>
             </div>

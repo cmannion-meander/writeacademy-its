@@ -8,7 +8,7 @@ WriteAcademy is an Intelligent Tutoring System that teaches creative writing thr
 
 ## Live Demo
 
-https://demo.writeacademy.com
+https://writeacademy-web-495938100779.us-central1.run.app/
 
 > Click **"Skip to demo with a pre-written story"** on the landing page to instantly load a complete 12-page storybook with cached illustrations — no Gemini calls, no waiting.
 
@@ -188,6 +188,39 @@ cp .env.local.example .env.local  # set NEXT_PUBLIC_BACKEND_URL=http://localhost
 npm run dev
 # → http://localhost:3000
 ```
+
+---
+
+## Testing Instructions (For Judges)
+
+### Option 1: Live Demo (Recommended)
+
+The app is deployed and running on Google Cloud Run:
+
+**→ [https://demo.writeacademy.com](https://demo.writeacademy.com)**
+
+No login required. Walk through the full experience in ~10 minutes:
+
+1. **Onboarding** — enter your name, describe a character and world, then write a short story opening (~2-3 sentences is enough). The system will assess your writing skills across 5 craft dimensions.
+2. **Session 1: Discover** — read the example passage and respond to the feeling prompt. The technique will be revealed based on your skill assessment.
+3. **Session 1: Write** — write 3 pages of your story. After saving each page, an AI illustration will generate (allow ~10 seconds). The Craft Coach panel offers real-time feedback on your draft.
+4. **Session 1: Review** — view your illustrated pages in the storybook viewer with page-turn navigation. Read the Gibbs-structured feedback cards. Preview the next session.
+5. **Export** — download your illustrated storybook as a PDF.
+
+**What to look for:**
+- The skill assessment adapts which techniques are taught (check if any were marked "compress" or "skip")
+- Illustrations maintain consistent character design across pages (visual bible system)
+- Craft Coach feedback references your specific writing and earlier pages
+- Gibbs feedback cards are structured across 6 reflective phases with quotes from your text
+
+### Option 2: Local Setup
+
+See the [Local Setup](#local-setup) section above. Requires Python 3.12+, Node.js 18+, and a Gemini API key.
+
+### Option 3: Watch the Demo Video
+
+<!-- TODO: Replace with actual YouTube link before submission -->
+A full walkthrough of the experience is available in our [demo video](https://youtube.com).
 
 ---
 

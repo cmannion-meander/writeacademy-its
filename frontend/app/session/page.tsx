@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useState, useEffect, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { Save, RefreshCw, ArrowLeft, X, RotateCcw } from "lucide-react";
 import { WonderPhase } from "@/components/session/wonder-phase";
@@ -33,7 +33,16 @@ type Phase = "loading" | "wonder" | "build" | "reflect" | "editing" | "next-load
  * Per session-ux.md and KICKOFF.md Step 7.
  */
 export default function SessionPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <SessionPageInner />
+    </Suspense>
+  );
+}
+
+function SessionPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:8123";
 
   const [phase, setPhase] = useState<Phase>("loading");
@@ -95,7 +104,17 @@ export default function SessionPage() {
       }
 
       setPlan(sessionPlan);
-      setPhase("wonder");
+
+      // If ?phase=reflect is set (e.g. from "View finished storybook"), skip to review
+      const requestedPhase = searchParams.get("phase");
+      if (requestedPhase === "reflect") {
+        // Load all illustrations from backend for a complete view
+        const updated = await loadMissingIllustrations(storedStory.story_id, allCompletedPages);
+        setCompletedPages(updated);
+        setPhase("reflect");
+      } else {
+        setPhase("wonder");
+      }
     }
 
     init();
